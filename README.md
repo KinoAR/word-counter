@@ -1,7 +1,8 @@
 # word-counter
 
 > A word counting application that can determine the reading level of entered text.
-
+## Example Website:
+[Word Counter Website](https://kinoar.github.io/word-counter/)
 ## Build Setup
 
 ``` bash
