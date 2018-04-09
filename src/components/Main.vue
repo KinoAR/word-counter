@@ -6,7 +6,7 @@
           <form>
           <div class="form-group">
             <label for="WordCounter">Enter Text</label>
-            <textarea v-on:input="updateWord" class="form-control" id="textArea" rows="9" cols="80">
+            <textarea v-model="text" class="form-control" id="textArea" rows="9" cols="80">
             </textarea>
           </div>
         </form>
@@ -47,13 +47,17 @@ export default {
       sentenceCount: 0,
       syllables: 0,
       readingTime: 0, //Reading Time 200 - 250 words per minute
-      gradeLevel: 'Unknown'
+      gradeLevel: 'Unknown',
+      text: ''
+    }
+  },
+  watch: {
+    text(val) {
+      this.updateWord(val);
     }
   },
   methods: {
-    updateWord(event) {
-      const element = event.srcElement;
-      const value = element.value;
+    updateWord(value) {
       if(value !== null) {
         try {
           const words = value.match(/\b(\w+)\b/g);
@@ -96,7 +100,8 @@ export default {
       }                             
         word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');  
         word = word.replace(/^y/, '');
-        return word.match(/[aeiouy]{1,2}/g).length;
+        const matchArray = word.match(/[aeiouy]{1,2}/g);
+        return matchArray !== null ? matchArray.length : 0;
     }
   }
 }
